@@ -13089,6 +13089,10 @@ bool Unit::IsInFeralForm() const
 
 bool Unit::IsInDisallowedMountForm() const
 {
+    if (SpellInfo const* transformSpellInfo = sSpellMgr->GetSpellInfo(getTransForm()))
+        if (transformSpellInfo->Attributes & SPELL_ATTR0_CASTABLE_WHILE_MOUNTED)
+            return false;
+
     if (ShapeshiftForm form = GetShapeshiftForm())
     {
         SpellShapeshiftEntry const* shapeshift = sSpellShapeshiftStore.LookupEntry(form);
@@ -13145,7 +13149,7 @@ bool Unit::HandleStatModifier(UnitMods unitMod, UnitModifierType modifierType, f
             ApplyPercentModFloatVar(m_auraModifiersGroup[unitMod][modifierType], amount, apply);
             break;
         default:
-            break;
+        break;
     }
 
     if (!CanModifyStats())
