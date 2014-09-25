@@ -465,7 +465,7 @@ void WorldSession::LogoutPlayer(bool save)
             _player->BuildPlayerRepop();
             _player->RepopAtGraveyard();
         }
-     else if (_player->GetVehicleBase() && _player->isInCombat())
+     else if (_player->isInCombat())
 {
      _player->KillPlayer();
      _player->BuildPlayerRepop();
